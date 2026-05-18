@@ -1,0 +1,212 @@
+[
+  {
+    "heroTitle": "MAYA\nUnreal Engine",
+    "heroDesc": "Unreal Engine and Maya 3d characters.",
+    "cardTag": "Works",
+    "cardTitle": "MAYA and UE",
+    "cardDesc": "2021-2022",
+    "isGroup": false,
+    "mediaType": "image",
+    "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133834/UE-Maya_2022_vwnvr1.jpg"
+  },
+  {
+    "heroTitle": "Unreal\nEngine",
+    "heroDesc": "Unreal Engine Realtime test render.",
+    "cardTag": "Uneal Engine",
+    "cardTitle": "Unreal Engine",
+    "cardDesc": "Node FX & Assets",
+    "isGroup": true,
+    "groupItems": [
+      {
+        "title": "UE RealTime Image 01",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779132557/UE_RealTime_Render_v01_aybd5e.png"
+      },
+      {
+        "title": "UE RealTime Image 02",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133843/UE_RealTime_Render_v02_hbjycn.png"
+      },
+      {
+        "title": "UE RealTime Image 03",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779132557/UE_RealTime_Render_v01_aybd5e.png"
+      },
+      {
+        "title": "UE BG Image 01",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133845/UE_BG1_gcuktw.png"
+      },
+      {
+        "title": "UE BG Image 02",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133847/UE_BG2_fwhc7p.png"
+      },
+      {
+        "title": "Maya BG Image",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133848/Maya_Image_rt1ani.jpg"
+      }
+    ]
+  },
+  {
+    "heroTitle": "Unitel",
+    "heroDesc": "Unitel харилцаа 100 жилийн ойд зориулав.",
+    "cardTag": "Work",
+    "cardTitle": "Unitel харилцаа",
+    "cardDesc": "Unreal engine",
+    "isGroup": false,
+    "mediaType": "video",
+    "src": "https://res.cloudinary.com/do512p84s/video/upload/q_auto/f_auto/v1779133041/Unitel_%D1%85%D0%B0%D1%80%D0%B8%D0%BB%D1%86%D0%B0%D0%B0_fnk0hn.mp4"
+  },
+  {
+    "heroTitle": "Mobicom",
+    "heroDesc": "Mobicom 5X Data урамшуулал",
+    "cardTag": "Work",
+    "cardTitle": "Mobicom 5X",
+    "cardDesc": "Maya",
+    "isGroup": false,
+    "mediaType": "video",
+    "src": "https://res.cloudinary.com/do512p84s/video/upload/q_auto/f_auto/v1779133216/Mobicom_-_5X_hh2jts.mkv"
+  },
+  {
+    "heroTitle": "Pizza Hut",
+    "heroDesc": "Pizza Hut MusikAnimation",
+    "cardTag": "Work",
+    "cardTitle": "Pizza Hut Animation",
+    "cardDesc": "Maya",
+    "isGroup": false,
+    "mediaType": "video",
+    "src": "https://res.cloudinary.com/do512p84s/video/upload/q_auto/f_auto/v1779133243/Pizza_Hut_Animation_t6mybb.mkv"
+  },
+  {
+    "heroTitle": "Blender",
+    "heroDesc": "Blender render.",
+    "cardTag": "Blender",
+    "cardTitle": "Blender",
+    "cardDesc": "Node FX & Assets",
+    "isGroup": true,
+    "groupItems": [
+      {
+        "title": "Blender interior 3d mini style",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133843/Blender_interior_3d_design_mini_praxfv.png"
+      },
+      {
+        "title": "Blender monkey",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133838/Blender_monkey_bmiqb7.png"
+      },
+      {
+        "title": "blender 3d character style",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133853/blender_3d_character_style_y2mxik.png"
+      }
+    ]
+  },
+  {
+    "heroTitle": "Maya",
+    "heroDesc": "Maya characters.",
+    "cardTag": "Work",
+    "cardTitle": "Maya",
+    "cardDesc": "Node FX & Assets",
+    "isGroup": true,
+    "groupItems": [
+      {
+        "title": "BCS image 01",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133838/Maya_BCS_v01_fr51rw.jpg"
+      },
+      {
+        "title": "BCS image 02",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133839/Maya_BCS_v02_pymbxq.jpg"
+      },
+      {
+        "title": "BCS image 03",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133841/Maya_BCS_v03_lyszrz.jpg"
+      },
+      {
+        "title": "BCS image 04",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133842/Maya_BCS_v04_jddwvy.jpg"
+      }
+    ]
+  },
+  {
+    "heroTitle": "zBrush",
+    "heroDesc": "zBrush characters OutWork.",
+    "cardTag": "OutWork",
+    "cardTitle": "zBrush",
+    "cardDesc": "Node FX & Assets",
+    "isGroup": true,
+    "groupItems": [
+      {
+        "title": "zB image 01",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133831/zbrush_image_v01_usiaat.jpg"
+      },
+      {
+        "title": "zB image 02",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133831/zbrush_image_v02_pdsqst.jpg"
+      },
+      {
+        "title": "zB image 03",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133832/zbrush_image_v03_gtd1mn.jpg"
+      }
+    ]
+  },
+  {
+    "heroTitle": "OutWork",
+    "heroDesc": "Maya.",
+    "cardTag": "Maya",
+    "cardTitle": "Maya",
+    "cardDesc": "Node FX & Assets",
+    "isGroup": true,
+    "groupItems": [
+      {
+        "title": "potty hi style v01",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133440/potty_hi_style_v01_lmrscn.jpg"
+      },
+      {
+        "title": "potty angry style v01",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133439/potty_angry_style_v01_sv1wtn.jpg"
+      },
+      {
+        "title": "potty T-pose style v01",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133441/potty_style_v01_kckreo.jpg"
+      },
+      {
+        "title": "potty T-pose style v01",
+        "type": "video",
+        "src": "https://res.cloudinary.com/do512p84s/video/upload/q_auto/f_auto/v1779133450/potty_style_v02_q7no1r.mp4"
+      },
+      {
+        "title": "potty hi style v02",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133441/potty_hi_style_v02_tcghsn.jpg"
+      },
+      {
+        "title": "potty angry style v02",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133440/potty_angry_style_v02_bl8umd.jpg"
+      },
+      {
+        "title": "potty T-pose style v02",
+        "type": "image",
+        "src": "https://res.cloudinary.com/do512p84s/image/upload/q_auto/f_auto/v1779133441/potty_style_v02_uneyif.jpg"
+      },
+      {
+        "title": "potty T-pose style v02",
+        "type": "video",
+        "src": "https://res.cloudinary.com/do512p84s/video/upload/q_auto/f_auto/v1779133462/potty_style_v01_uho16d.mp4"
+      }
+    ]
+  }
+]
