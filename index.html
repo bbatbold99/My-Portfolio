@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BBD Portfolio</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+height:100vh;
+overflow:hidden;
+
+background:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070")
+center/cover;
+
+}
+
+body::before{
+
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(8px);
+
+}
+
+nav{
+
+position:absolute;
+top:25px;
+left:50%;
+transform:translateX(-50%);
+
+display:flex;
+gap:40px;
+z-index:100;
+color:white;
+
+}
+
+nav a{
+
+text-decoration:none;
+color:white;
+font-size:14px;
+letter-spacing:2px;
+
+}
+
+.logo{
+
+position:absolute;
+left:50px;
+top:20px;
+
+font-size:30px;
+font-weight:bold;
+color:white;
+
+z-index:100;
+}
+
+button{
+
+position:absolute;
+right:50px;
+top:15px;
+
+padding:12px 25px;
+
+border:none;
+border-radius:30px;
+
+background:#ff8f2a;
+color:white;
+
+cursor:pointer;
+z-index:100;
+
+}
+
+.container{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+perspective:1500px;
+
+}
+
+.cards{
+
+position:relative;
+width:1000px;
+height:500px;
+
+transform-style:preserve-3d;
+
+}
+
+.card{
+
+position:absolute;
+
+width:300px;
+height:450px;
+
+border-radius:20px;
+
+overflow:hidden;
+
+transition:1s;
+
+box-shadow:
+0 20px 40px rgba(0,0,0,.5);
+
+cursor:pointer;
+
+}
+
+.card img{
+
+width:100%;
+height:100%;
+object-fit:cover;
+
+}
+
+.card::after{
+
+content:"";
+position:absolute;
+
+bottom:0;
+width:100%;
+height:50%;
+
+background:
+linear-gradient(
+transparent,
+rgba(0,0,0,.8)
+);
+
+}
+
+.card-text{
+
+position:absolute;
+
+bottom:40px;
+left:25px;
+
+color:white;
+z-index:5;
+
+}
+
+.card-text h1{
+
+font-size:35px;
+margin-bottom:10px;
+
+}
+
+.card-text p{
+
+opacity:.8;
+}
+
+.active{
+
+left:350px;
+transform:
+translateZ(100px)
+scale(1.1);
+
+z-index:10;
+
+}
+
+.left{
+
+left:0;
+transform:
+rotateY(35deg)
+scale(.85);
+
+opacity:.7;
+
+}
+
+.right{
+
+left:700px;
+transform:
+rotateY(-35deg)
+scale(.85);
+
+opacity:.7;
+
+}
+
+.hidden{
+
+opacity:0;
+transform:scale(.5);
+pointer-events:none;
+
+}
+
+.arrow{
+
+position:absolute;
+top:50%;
+
+transform:translateY(-50%);
+
+font-size:50px;
+color:white;
+
+cursor:pointer;
+z-index:100;
+
+user-select:none;
+
+}
+
+.leftArrow{
+
+left:50px;
+}
+
+.rightArrow{
+
+right:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="logo">
+BBD
+</div>
+
+<nav>
+
+<a href="#">HOME</a>
+<a href="#">PROJECTS</a>
+<a href="#">PLUGINS</a>
+<a href="#">ABOUT</a>
+
+</nav>
+
+<button>
+CONTACT
+</button>
+
+<div class="arrow leftArrow">
+❮
+</div>
+
+<div class="arrow rightArrow">
+❯
+</div>
+
+<div class="container">
+
+<div class="cards">
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b">
+
+<div class="card-text">
+
+<h1>MAYA TOOLS</h1>
+
+<p>Advanced Plugin System</p>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+
+<div class="card-text">
+
+<h1>NODE FX</h1>
+
+<p>After Effects Nodes</p>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e">
+
+<div class="card-text">
+
+<h1>RENDER FARM</h1>
+
+<p>Distributed Rendering</p>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e">
+
+<div class="card-text">
+
+<h1>ANIMATION</h1>
+
+<p>3D Character Motion</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+let cards=document.querySelectorAll(".card");
+
+let current=1;
+
+function updateCards(){
+
+cards.forEach(card=>{
+
+card.className="card";
+
+});
+
+cards[current].classList.add("active");
+
+cards[(current-1+cards.length)%cards.length]
+.classList.add("left");
+
+cards[(current+1)%cards.length]
+.classList.add("right");
+
+for(let i=0;i<cards.length;i++){
+
+if(
+i!==current &&
+i!==(current-1+cards.length)%cards.length &&
+i!==(current+1)%cards.length
+){
+
+cards[i].classList.add("hidden");
+
+}
+
+}
+
+}
+
+document.querySelector(".rightArrow")
+.onclick=()=>{
+
+current++;
+
+if(current>=cards.length)
+current=0;
+
+updateCards();
+
+}
+
+document.querySelector(".leftArrow")
+.onclick=()=>{
+
+current--;
+
+if(current<0)
+current=cards.length-1;
+
+updateCards();
+
+}
+
+updateCards();
+
+</script>
+
+</body>
+</html>
