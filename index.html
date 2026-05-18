@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBD Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --orange: #ff8f2a;
+            --orange-glow: rgba(255,143,42,0.35);
+            --white: #ffffff;
+            --dim: rgba(255,255,255,0.55);
+            --card-w: 300px;
+            --card-h: 460px;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'DM Sans', sans-serif;
+            background: #0a0a0a;
+            color: var(--white);
+        }
+
+        /* ── ✨ LOADING SCREEN ── */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #050505;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
+        }
+
+            #loader.fade-out {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.05);
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px var(--orange-glow);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── ✨ BACKGROUND SYSTEM ── */
+        #bgWrap {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .bg-layer {
+            position: absolute;
+            inset: 0;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            filter: blur(20px) brightness(.2) saturate(1.2);
+            transform: scale(1.08);
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+            .bg-layer.active {
+                opacity: 1;
+            }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,.85) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ── Header ── */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            z-index: 200;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            letter-spacing: 4px;
+            line-height: 1;
+        }
+
+            .logo span {
+                color: var(--orange);
+            }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+            nav a {
+                text-decoration: none;
+                color: var(--dim);
+                font-size: 12px;
+                font-weight: 500;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                transition: color .25s;
+                position: relative;
+            }
+
+                nav a::after {
+                    content: "";
+                    position: absolute;
+                    bottom: -4px;
+                    left: 0;
+                    right: 0;
+                    height: 1px;
+                    background: var(--orange);
+                    transform: scaleX(0);
+                    transition: transform .3s;
+                }
+
+                nav a:hover {
+                    color: var(--white);
+                }
+
+                    nav a:hover::after {
+                        transform: scaleX(1);
+                    }
+
+        /* ── View toggle ── */
+        #viewToggle {
+            position: fixed;
+            top: 22px;
+            right: 60px;
+            z-index: 300;
+            display: flex;
+            gap: 6px;
+        }
+
+        .vtBtn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+            color: rgba(255,255,255,0.5);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color .3s, background .3s, color .3s;
+        }
+
+            .vtBtn:hover, .vtBtn.active {
+                border-color: var(--orange);
+                background: var(--orange-glow);
+                color: white;
+            }
+
+        /* ── Hero text ── */
+        .hero-text {
+            position: fixed;
+            bottom: 60px;
+            left: 60px;
+            z-index: 200;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+
+            .hero-text .label {
+                font-size: 11px;
+                letter-spacing: 4px;
+                color: var(--orange);
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+
+            .hero-text h2 {
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: clamp(48px, 6vw, 80px);
+                line-height: 1;
+                letter-spacing: 3px;
+            }
+
+            .hero-text p {
+                margin-top: 12px;
+                font-size: 14px;
+                color: var(--dim);
+                max-width: 280px;
+                line-height: 1.6;
+            }
+
+        .counter {
+            position: fixed;
+            bottom: 60px;
+            right: 60px;
+            z-index: 200;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 80px;
+            color: rgba(255,255,255,0.08);
+            letter-spacing: 4px;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        /* ── CAROUSEL VIEW ── */
+        #carouselView {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1600px;
+            z-index: 10;
+        }
+
+        .cards {
+            position: relative;
+            width: 1000px;
+            height: var(--card-h);
+            transform-style: preserve-3d;
+        }
+
+        .card {
+            position: absolute;
+            width: var(--card-w);
+            height: var(--card-h);
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            top: 0;
+            transition: width 0.6s cubic-bezier(.25, 1, .25, 1), left 0.6s cubic-bezier(.25, 1, .25, 1), transform 0.6s cubic-bezier(.25, 1, .25, 1), opacity 0.6s ease, box-shadow 0.6s ease;
+            box-shadow: 0 30px 70px rgba(0,0,0,.6);
+            background: #111;
+        }
+
+            .card img, .card video, .group-cell img, .group-cell video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0;
+                transition: transform .8s ease, opacity 0.5s ease;
+            }
+
+                .card img.loaded, .card video.loaded, .group-cell img.loaded, .group-cell video.loaded {
+                    opacity: 1;
+                }
+
+            .card:not(.group-card):hover img, .card:not(.group-card):hover video {
+                transform: scale(1.04);
+            }
+
+            .card::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.85) 100%);
+                pointer-events: none;
+                z-index: 3;
+            }
+
+            .card::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: var(--orange);
+                z-index: 6;
+                transform: scaleX(0);
+                transition: transform .5s ease;
+            }
+
+            .card.active::before {
+                transform: scaleX(1);
+            }
+
+            .card.group-card.active.open {
+                width: 580px;
+                left: 210px !important;
+                transform: translateZ(120px) scale(1);
+                z-index: 30;
+            }
+
+        .group-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            width: 100%;
+            height: 100%;
+            gap: 4px;
+            background: rgba(0,0,0,0.3);
+            transition: grid-template-columns 0.6s cubic-bezier(.25, 1, .25, 1);
+        }
+
+        .card.group-card.open .group-grid {
+            grid-template-columns: 1.2fr 1fr;
+        }
+
+        .group-cell {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            background: #151515;
+        }
+
+            .group-cell:hover {
+                border-color: var(--orange);
+                z-index: 4;
+                box-shadow: 0 0 15px var(--orange-glow);
+            }
+
+                .group-cell:hover img, .group-cell:hover video {
+                    transform: scale(1.05);
+                }
+
+            .group-cell::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%);
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            .group-cell .cell-label {
+                position: absolute;
+                bottom: 12px;
+                left: 12px;
+                font-size: 13px;
+                font-weight: 500;
+                z-index: 5;
+                font-family: 'Bebas Neue', sans-serif;
+                letter-spacing: 1px;
+            }
+
+            .group-cell:first-child {
+                grid-row: span 2;
+            }
+
+        .card-text {
+            position: absolute;
+            bottom: 36px;
+            left: 28px;
+            right: 28px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+            .card-text .tag {
+                display: inline-block;
+                font-size: 9px;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: var(--orange);
+                border: 1px solid var(--orange);
+                border-radius: 20px;
+                padding: 3px 10px;
+                margin-bottom: 10px;
+            }
+
+            .card-text h1 {
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: 34px;
+                letter-spacing: 2px;
+                line-height: 1;
+                margin-bottom: 6px;
+            }
+
+            .card-text p {
+                font-size: 12px;
+                color: rgba(255,255,255,0.65);
+                letter-spacing: 1px;
+            }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45px;
+            height: 45px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1.5px solid var(--orange);
+            color: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            padding-left: 2px;
+            z-index: 6;
+            transition: all .3s;
+            box-shadow: 0 0 15px var(--orange-glow);
+            pointer-events: none;
+        }
+
+        .card:hover .play-icon, .group-cell:hover .play-icon {
+            background: var(--orange);
+            color: #000;
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 25px var(--orange);
+        }
+
+        /* 3D Positions */
+        .active {
+            left: 350px;
+            transform: translateZ(120px) scale(1.05);
+            z-index: 10;
+            box-shadow: 0 40px 80px rgba(0,0,0,.7), 0 0 40px var(--orange-glow);
+        }
+
+        .left {
+            left: 40px;
+            transform: rotateY(35deg) scale(.83) translateZ(-40px);
+            opacity: .4;
+            z-index: 5;
+        }
+
+        .right {
+            left: 660px;
+            transform: rotateY(-35deg) scale(.83) translateZ(-40px);
+            opacity: .4;
+            z-index: 5;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: scale(.4) translateZ(-200px);
+            pointer-events: none;
+        }
+
+        /* Arrows */
+        .arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 200;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color .3s, background .3s, box-shadow .3s;
+            user-select: none;
+        }
+
+            .arrow:hover {
+                border-color: var(--orange);
+                background: var(--orange-glow);
+                box-shadow: 0 0 20px var(--orange-glow);
+            }
+
+        .leftArrow {
+            left: 28px;
+        }
+
+        .rightArrow {
+            right: 28px;
+        }
+
+        /* Dots */
+        .dots {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 200;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.25);
+            transition: width .4s, background .4s;
+            cursor: pointer;
+        }
+
+            .dot.active {
+                width: 22px;
+                background: var(--orange);
+            }
+
+        /* GRID VIEW */
+        #gridView {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            padding: 120px 60px 60px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .grid-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--orange);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-card {
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 3/4;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,.5);
+            transition: transform .3s, box-shadow .3s;
+            background: #111;
+        }
+
+            .grid-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 50px rgba(0,0,0,.7);
+            }
+
+            .grid-card img, .grid-card video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0;
+                transition: transform .6s, opacity 0.4s;
+            }
+
+                .grid-card img.loaded, .grid-card video.loaded {
+                    opacity: 1;
+                }
+
+            .grid-card:hover img, .grid-card:hover video {
+                transform: scale(1.04);
+            }
+
+            .grid-card::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.85) 100%);
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            .grid-card::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: var(--orange);
+                z-index: 6;
+            }
+
+        .grid-card-text {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            z-index: 5;
+        }
+
+            .grid-card-text .tag {
+                display: inline-block;
+                font-size: 8px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--orange);
+                border: 1px solid var(--orange);
+                border-radius: 20px;
+                padding: 2px 8px;
+                margin-bottom: 6px;
+            }
+
+            .grid-card-text h3 {
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: 22px;
+                letter-spacing: 1px;
+                line-height: 1;
+                margin-bottom: 3px;
+            }
+
+            .grid-card-text p {
+                font-size: 10px;
+                color: rgba(255,255,255,0.6);
+            }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 4, 4, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(.25, 1, .25, 1);
+            backdrop-filter: blur(15px);
+        }
+
+            .lightbox.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .lightbox img, .lightbox video {
+                max-width: 85%;
+                max-height: 80vh;
+                border-radius: 12px;
+                box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 30px var(--orange-glow);
+                transform: scale(0.95);
+                transition: transform 0.4s ease;
+                object-fit: contain;
+                display: none;
+                outline: none;
+            }
+
+            .lightbox.show img, .lightbox.show video {
+                transform: scale(1);
+            }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <div style="font-family:'Bebas Neue',sans-serif; letter-spacing:2px; font-size:18px;">LOADING PORTFOLIO...</div>
+    </div>
+
+    <div id="bgWrap">
+        <div id="bg1" class="bg-layer active"></div>
+        <div id="bg2" class="bg-layer"></div>
+    </div>
+
+    <header>
+        <div class="logo">BB<span>D</span></div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Projects</a>
+            <a href="#">Plugins</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
+
+    <div id="viewToggle">
+        <div class="vtBtn active" id="btnCarousel" title="Carousel" onclick="setView('carousel')">⊞</div>
+        <div class="vtBtn" id="btnGrid" title="Grid" onclick="setView('grid')">⋮⋮</div>
+    </div>
+
+    <div class="hero-text" id="heroText">
+        <div class="label">Featured Work</div>
+        <h2 id="heroTitle">MAYA<br>TOOLS</h2>
+        <p id="heroDesc">Advanced plugin system for streamlined 3D production pipelines.</p>
+    </div>
+    <div class="counter" id="counter">01</div>
+
+    <div class="arrow leftArrow" id="left">←</div>
+    <div class="arrow rightArrow" id="right">→</div>
+
+    <div id="carouselView">
+        <div class="cards" id="cardsEl"></div>
+    </div>
+
+    <div id="gridView">
+        <div class="grid-title">All Projects</div>
+        <div class="grid-container" id="gridContainerEl"></div>
+    </div>
+
+    <div class="dots" id="dots"></div>
+
+    <div id="lightbox" class="lightbox">
+        <img id="lightbox-img" src="" alt="Lightbox asset">
+        <video id="lightbox-video" src="" controls></video>
+    </div>
+
+    <script>
+        let portfolioData = [];
+        let currentView = 'carousel';
+        let current = 0;
+        let activeBgLayer = 1;
+
+        const cardsEl = document.getElementById("cardsEl");
+        const gridContainerEl = document.getElementById("gridContainerEl");
+        const loader = document.getElementById("loader");
+
+        // ✨ LAZY LOADING: Google Drive болон локал видеог найдвартай ачаалах шинэчлэгдсэн логик
+        const lazyLoadManager = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const media = entry.target;
+                    if (media.dataset.src) {
+                        media.src = media.dataset.src;
+                        media.removeAttribute('data-src');
+
+                        // Хөтөчид файлыг хүчээр уншуулж, тоглуулахад бэлдэх
+                        if (media.tagName === 'VIDEO') {
+                            media.load();
+                        }
+                    }
+
+                    // Бүрэн уншигдаж эхлэхэд 'loaded' класс нэмэх
+                    if (media.tagName === 'VIDEO') {
+                        media.addEventListener('loadedmetadata', () => media.classList.add('loaded'));
+                    } else {
+                        media.addEventListener('load', () => media.classList.add('loaded'));
+                    }
+                    observer.unobserve(media);
+                }
+            });
+        }, { rootMargin: "100px" });
+
+        // 1. DATA.JSON ТАТАХ & LOADING СҮҮЛД НЬ ХААХ
+        async function loadPortfolioData() {
+            try {
+                const response = await fetch('data.json');
+                portfolioData = await response.json();
+
+                renderPortfolio();
+                buildDots();
+                updateCards();
+
+                if (portfolioData[0]) {
+                    const firstBg = portfolioData[0].isGroup ? portfolioData[0].groupItems[0].src : portfolioData[0].src;
+                    document.getElementById('bg1').style.backgroundImage = `url('${firstBg}')`;
+                }
+
+                setTimeout(() => {
+                    loader.classList.add("fade-out");
+                }, 400);
+
+            } catch (error) {
+                console.error("data.json уншихад алдаа гарлаа. Локал сервер ашиглана уу:", error);
+                loader.classList.add("fade-out");
+            }
+        }
+
+        // 2. КАРТУУДЫГ ҮҮСГЭХ
+        function renderPortfolio() {
+            cardsEl.innerHTML = "";
+            gridContainerEl.innerHTML = "";
+
+            portfolioData.forEach((item, idx) => {
+                const card = document.createElement("div");
+                card.dataset.index = idx;
+
+                if (item.isGroup) {
+                    card.className = "card group-card";
+                    let gridCells = "";
+                    item.groupItems.forEach(cell => {
+                        if (cell.type === 'video') {
+                            gridCells += `
+                                    <div class="group-cell" data-src="${cell.src}" data-type="video">
+                                        <video data-src="${cell.src}" preload="metadata" muted></video>
+                                        <div class="play-icon">▶</div>
+                                        <span class="cell-label">${cell.title}</span>
+                                    </div>`;
+                        } else {
+                            gridCells += `
+                                    <div class="group-cell" data-src="${cell.src}" data-type="image">
+                                        <img data-src="${cell.src}" alt="${cell.title}">
+                                        <span class="cell-label">${cell.title}</span>
+                                    </div>`;
+                        }
+                    });
+                    card.innerHTML = `<div class="group-grid">${gridCells}</div>`;
+                } else {
+                    card.className = "card";
+                    const mediaTag = item.mediaType === 'video'
+                        ? `<video data-src="${item.src}" preload="metadata" muted></video><div class="play-icon">▶</div>`
+                        : `<img data-src="${item.src}" alt="${item.cardTitle}">`;
+
+                    card.innerHTML = `
+                            ${mediaTag}
+                            <div class="card-text">
+                                <span class="tag">${item.cardTag}</span>
+                                <h1>${item.cardTitle}</h1>
+                                <p>${item.cardDesc}</p>
+                            </div>`;
+                }
+                cardsEl.appendChild(card);
+
+                // Grid хэсэгт карт үүсгэх
+                const gridCard = document.createElement("div");
+                gridCard.className = "grid-card";
+                if (item.isGroup) {
+                    const firstMedia = item.groupItems[0];
+                    const gridMedia = firstMedia.type === 'video'
+                        ? `<video data-src="${firstMedia.src}" preload="metadata" muted></video>`
+                        : `<img data-src="${firstMedia.src}">`;
+                    gridCard.innerHTML = `
+                            ${gridMedia}
+                            <div class="grid-card-text">
+                                <span class="tag">Group</span>
+                                <h3>${item.cardTitle}</h3>
+                                <p>${item.groupItems.length} Items</p>
+                            </div>`;
+                    gridCard.onclick = () => {
+                        setView('carousel');
+                        goTo(idx);
+                        const targetCard = cardsEl.querySelector(`[data-index="${idx}"]`);
+                        if (targetCard) targetCard.classList.add('open');
+                    };
+                } else {
+                    const gridMedia = item.mediaType === 'video'
+                        ? `<video data-src="${item.src}" preload="metadata" muted></video>`
+                        : `<img data-src="${item.src}">`;
+                    gridCard.innerHTML = `
+                            ${gridMedia}
+                            <div class="grid-card-text">
+                                <span class="tag">${item.cardTag}</span>
+                                <h3>${item.cardTitle}</h3>
+                                <p>${item.cardDesc}</p>
+                            </div>`;
+                    gridCard.onclick = () => { setView('carousel'); goTo(idx); };
+                }
+                gridContainerEl.appendChild(gridCard);
+            });
+
+            document.querySelectorAll('#carouselView [data-src], #gridView [data-src]').forEach(el => {
+                lazyLoadManager.observe(el);
+            });
+        }
+
+        // ✨ Текст шилжилтийн анимаци
+        function animateHeroText() {
+            const heroText = document.getElementById("heroText");
+            heroText.animate([
+                { transform: 'translateY(15px)', opacity: 0 },
+                { transform: 'translateY(0)', opacity: 1 }
+            ], {
+                duration: 500,
+                easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                fill: 'forwards'
+            });
+        }
+
+        // ✨ Арын дэвсгэр солих логик
+        function updateBackground(src) {
+            const nextLayerId = activeBgLayer === 1 ? 'bg2' : 'bg1';
+            const currentLayerId = activeBgLayer === 1 ? 'bg1' : 'bg2';
+
+            const nextLayer = document.getElementById(nextLayerId);
+            const currentLayer = document.getElementById(currentLayerId);
+
+            nextLayer.style.backgroundImage = `url('${src}')`;
+            nextLayer.classList.add('active');
+            currentLayer.classList.remove('active');
+
+            activeBgLayer = activeBgLayer === 1 ? 2 : 1;
+        }
+
+        function setView(v) {
+            currentView = v;
+            const carousel = document.getElementById('carouselView');
+            const grid = document.getElementById('gridView');
+            const arrows = document.querySelectorAll('.arrow');
+            const dots = document.getElementById('dots');
+            const hero = document.getElementById('heroText');
+            const counter = document.getElementById('counter');
+
+            document.getElementById('btnCarousel').classList.toggle('active', v === 'carousel');
+            document.getElementById('btnGrid').classList.toggle('active', v === 'grid');
+
+            closeAllGroups();
+
+            if (v === 'carousel') {
+                carousel.style.display = 'flex';
+                grid.style.display = 'none';
+                arrows.forEach(a => a.style.display = 'flex');
+                dots.style.display = 'flex';
+                hero.style.display = 'block';
+                counter.style.display = 'block';
+                updateCards();
+            } else {
+                carousel.style.display = 'none';
+                grid.style.display = 'block';
+                arrows.forEach(a => a.style.display = 'none');
+                dots.style.display = 'none';
+                hero.style.display = 'none';
+                counter.style.display = 'none';
+
+                document.querySelectorAll('#gridView [data-src]').forEach(el => {
+                    lazyLoadManager.observe(el);
+                });
+            }
+        }
+
+        function getCards() { return cardsEl.querySelectorAll(".card"); }
+
+        function buildDots() {
+            const dotsEl = document.getElementById("dots");
+            dotsEl.innerHTML = "";
+            getCards().forEach((_, i) => {
+                const d = document.createElement("div");
+                d.className = "dot";
+                d.onclick = () => goTo(i);
+                dotsEl.appendChild(d);
+            });
+        }
+
+        function pad(n) { return String(n + 1).padStart(2, "0"); }
+
+        function updateCards() {
+            const cards = getCards();
+            const n = cards.length;
+            if (n === 0) return;
+
+            cards.forEach(c => {
+                const isOpen = c.classList.contains('open');
+                c.className = c.classList.contains('group-card') ? 'card group-card' : 'card';
+                if (isOpen) c.classList.add('open');
+            });
+
+            const activeCard = cards[current];
+            const leftCard = cards[(current - 1 + n) % n];
+            const rightCard = cards[(current + 1) % n];
+
+            activeCard.className += " active";
+            leftCard.className += " left";
+            rightCard.className += " right";
+
+            [activeCard, leftCard, rightCard].forEach(c => {
+                c.querySelectorAll('[data-src]').forEach(el => lazyLoadManager.observe(el));
+            });
+
+            for (let i = 0; i < n; i++) {
+                if (i !== current && i !== (current - 1 + n) % n && i !== (current + 1) % n)
+                    cards[i].classList.add("hidden");
+            }
+
+            const dots = document.querySelectorAll(".dot");
+            if (dots.length > 0) {
+                dots.forEach((d, i) => d.classList.toggle("active", i === current));
+            }
+
+            if (portfolioData[current]) {
+                document.getElementById("heroTitle").innerHTML = portfolioData[current].heroTitle.replace("\n", "<br>") || "";
+                document.getElementById("heroDesc").textContent = portfolioData[current].heroDesc || "";
+                document.getElementById("counter").textContent = pad(current);
+
+                animateHeroText();
+
+                const bgSrc = portfolioData[current].isGroup ? portfolioData[current].groupItems[0].src : portfolioData[current].src;
+                updateBackground(bgSrc);
+            }
+        }
+
+        function goTo(idx) {
+            closeAllGroups();
+            current = idx;
+            updateCards();
+        }
+
+        document.getElementById("right").onclick = () => { goTo((current + 1) % getCards().length); };
+        document.getElementById("left").onclick = () => { goTo((current - 1 + getCards().length) % getCards().length); };
+
+        function closeAllGroups() {
+            document.querySelectorAll('.group-card').forEach(c => c.classList.remove('open'));
+        }
+
+        /* ── КЛИК ЭВЕНТ УДИРДАХ ЦЕНТР ── */
+        cardsEl.addEventListener('click', function (e) {
+            const card = e.target.closest('.card');
+            if (!card) return;
+
+            const index = parseInt(card.dataset.index);
+
+            if (index !== current) {
+                goTo(index);
+                return;
+            }
+
+            const cell = e.target.closest('.group-cell');
+            if (cell && card.classList.contains('open')) {
+                e.stopPropagation();
+                showLightbox(cell.querySelector('img, video').src, cell.dataset.type);
+                return;
+            }
+
+            if (card.classList.contains('group-card')) {
+                if (card.classList.contains('open')) {
+                    card.classList.remove('open');
+                } else {
+                    closeAllGroups();
+                    card.classList.add('open');
+                }
+                return;
+            }
+
+            if (!card.classList.contains('group-card')) {
+                const item = portfolioData[index];
+                const activeMedia = card.querySelector('img, video');
+                showLightbox(activeMedia.src, item.mediaType);
+            }
+        });
+
+        function showLightbox(src, type) {
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            lightboxImg.style.display = 'none';
+            lightboxVideo.style.display = 'none';
+            lightboxVideo.pause();
+
+            if (type === 'video') {
+                lightboxVideo.src = src;
+                lightboxVideo.style.display = 'block';
+                document.getElementById('lightbox').classList.add('show');
+                lightboxVideo.play();
+            } else {
+                lightboxImg.src = src;
+                lightboxImg.style.display = 'block';
+                document.getElementById('lightbox').classList.add('show');
+            }
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxVideo = document.getElementById('lightbox-video');
+
+            if (e.target !== lightboxImg && e.target !== lightboxVideo) {
+                this.classList.remove('show');
+                lightboxVideo.pause();
+                lightboxVideo.src = "";
+                lightboxImg.src = "";
+            }
+        });
+
+        loadPortfolioData();
+    </script>
+</body>
+</html>
